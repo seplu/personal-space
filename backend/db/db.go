@@ -5,16 +5,16 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var db *sql.DB
+var DB *sql.DB
 
 func InitDB() {
 	var err error
-	db, err = sql.Open("sqlite3", "ps.sqlite")
+	DB, err = sql.Open("sqlite3", "ps.sqlite")
 	if err != nil {
 		panic("Could not connect to the database.")
 	}
-	db.SetMaxOpenConns(10)
-	db.SetMaxIdleConns(5)
+	DB.SetMaxOpenConns(10)
+	DB.SetMaxIdleConns(5)
 
 	createTables()
 }
@@ -25,7 +25,7 @@ func createTables() {
 		email TEXT NOT NULL UNIQUE,
 		password TEXT NOT NULL    
 	)`
-	_, err := db.Exec(createUsersTable)
+	_, err := DB.Exec(createUsersTable)
 	if err != nil {
 		panic("Could not create users table.")
 	}
