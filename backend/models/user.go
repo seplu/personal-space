@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"errors"
 	"seplu.pl/personal-space/db"
 	"seplu.pl/personal-space/utils"
 )
@@ -34,4 +35,23 @@ func (u User) Create() error {
 	userId, err := result.LastInsertId()
 	u.ID = userId
 	return err
+}
+
+func (u User) ValidateCredentials() error {
+	query := `SELECT id, password FROM users WHERE email = ?`
+	row := db.DB.QueryRow(query, u.Email)
+
+	var retrievedPassword string
+	err := row.Scan(&u.ID, &retrievedPassword)
+
+	if err != nil {
+		return errors.New("Invalid credentials.")
+	}
+
+	passwordIsValid := utils.CheckPasswordHash(u.Password, retrievedPassword)
+
+	if !passwordIsValid {
+		return errors.New("Invalid credentials.")
+	}
+	return nil
 }
