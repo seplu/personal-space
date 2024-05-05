@@ -29,4 +29,18 @@ func createTables() {
 	if err != nil {
 		panic("Could not create users table.")
 	}
+
+	createCarsTable := `CREATE TABLE IF NOT EXISTS cars (
+    	id INTEGER PRIMARY KEY AUTOINCREMENT,
+    	brand TEXT NOT NULL,
+    	model TEXT NOT NULL,
+    	year INTEGER NOT NULL,
+    	FOREIGN KEY(userID) REFERENCES users(id)
+    )`
+
+	_, err = DB.Exec(createCarsTable)
+	if err != nil {
+		panic("Could not create cars table.")
+	}
+
 }
