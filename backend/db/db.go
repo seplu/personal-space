@@ -58,4 +58,20 @@ func createTables() {
 		panic("Could not create car_costs table.")
 	}
 
+	createCarFuelChargeTable := `CREATE TABLE IF NOT EXISTS car_fuel_charge (
+    	id INTEGER PRIMARY KEY AUTOINCREMENT,
+    	dateTime DATETIME NOT NULL,
+    	mileage INTEGER NOT NULL,
+    	unitPrice INTEGER NOT NULL,
+    	totalPrice INTEGER NOT NULL,
+    	liters_kwh INTEGER NOT NULL,
+    	description TEXT NOT NULL,
+    	FOREIGN KEY(userID) REFERENCES users(id)
+    	FOREIGN KEY(carID) REFERENCES cars(id)
+    )`
+
+	_, err = DB.Exec(createCarFuelChargeTable)
+	if err != nil {
+		panic("Could not create car_fuel_charge table.")
+	}
 }
