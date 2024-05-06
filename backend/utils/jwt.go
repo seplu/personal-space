@@ -3,19 +3,10 @@ package utils
 import (
 	"errors"
 	"github.com/golang-jwt/jwt/v5"
-	"os"
 	"time"
 )
 
-var secretKey = getEnv("SECRET_KEY", "useEnvVarForSecretKey")
-
-func getEnv(key, defaultValue string) string {
-	value := os.Getenv(key)
-	if len(value) == 0 {
-		return defaultValue
-	}
-	return value
-}
+var secretKey = GetEnv("SECRET_KEY", "useEnvVarForSecretKey")
 
 func GenerateToken(email string, userId int64) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
