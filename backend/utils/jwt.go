@@ -7,7 +7,15 @@ import (
 	"time"
 )
 
-var secretKey = os.Getenv("SECRET_KEY")
+var secretKey = getEnv("SECRET_KEY", "changeMe")
+
+func getEnv(key, defaultValue string) string {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return defaultValue
+	}
+	return value
+}
 
 func GenerateToken(email string, userId int64) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
