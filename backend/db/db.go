@@ -9,7 +9,7 @@ var DB *sql.DB
 
 func InitDB() {
 	var err error
-	DB, err = sql.Open("sqlite3", "ps.sqlite")
+	DB, err = sql.Open("sqlite3", "file:ps.sqlite?_foreign_keys=true")
 	if err != nil {
 		panic("Could not connect to the database.")
 	}
@@ -35,7 +35,7 @@ func createTables() {
     	brand TEXT NOT NULL,
     	model TEXT NOT NULL,
     	year INTEGER NOT NULL,
-    	FOREIGN KEY(userID) REFERENCES users(id)
+    	owner INTEGER REFERENCES users(id)
     )`
 
 	_, err = DB.Exec(createCarsTable)
@@ -49,8 +49,8 @@ func createTables() {
     	title TEXT NOT NULL,
     	cost INTEGER NOT NULL,
     	description TEXT NOT NULL,
-    	FOREIGN KEY(userID) REFERENCES users(id)
-    	FOREIGN KEY(carID) REFERENCES cars(id)
+    	owner INTEGER REFERENCES users(id),
+    	car INTEGER REFERENCES cars(id)
     )`
 
 	_, err = DB.Exec(createCarCostsTable)
@@ -66,8 +66,8 @@ func createTables() {
     	totalPrice INTEGER NOT NULL,
     	liters_kwh INTEGER NOT NULL,
     	description TEXT NOT NULL,
-    	FOREIGN KEY(userID) REFERENCES users(id)
-    	FOREIGN KEY(carID) REFERENCES cars(id)
+    	owner INTEGER REFERENCES users(id),
+    	car INTEGER REFERENCES cars(id)
     )`
 
 	_, err = DB.Exec(createCarFuelChargeTable)
