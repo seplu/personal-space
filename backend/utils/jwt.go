@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var secretKey = getEnv("SECRET_KEY", "changeMe")
+var secretKey = getEnv("SECRET_KEY", "useEnvVarForSecretKey")
 
 func getEnv(key, defaultValue string) string {
 	value := os.Getenv(key)
