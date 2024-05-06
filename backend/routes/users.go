@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"seplu.pl/personal-space/models"
+	"seplu.pl/personal-space/utils"
 )
 
 func signup(context *gin.Context) {
@@ -33,5 +34,10 @@ func login(context *gin.Context) {
 		context.JSON(http.StatusUnauthorized, gin.H{"message": "Invalid credentials."})
 		return
 	}
-	context.JSON(http.StatusOK, gin.H{"message": "Logged in!"})
+	token, err := utils.GenerateToken(user.Email, user.ID)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not generate token."})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"message": "Logged in!", "token": token})
 }
