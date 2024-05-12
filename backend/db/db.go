@@ -21,9 +21,9 @@ func InitDB() {
 
 func createTables() {
 	createUsersTable := `CREATE TABLE IF NOT EXISTS users (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		email TEXT NOT NULL UNIQUE,
-		password TEXT NOT NULL    
+		ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		Email TEXT NOT NULL UNIQUE,
+		Password TEXT NOT NULL    
 	)`
 	_, err := DB.Exec(createUsersTable)
 	if err != nil {
@@ -31,11 +31,11 @@ func createTables() {
 	}
 
 	createCarsTable := `CREATE TABLE IF NOT EXISTS cars (
-    	id INTEGER PRIMARY KEY AUTOINCREMENT,
-    	brand TEXT NOT NULL,
-    	model TEXT NOT NULL,
-    	year INTEGER NOT NULL,
-    	owner INTEGER REFERENCES users(id)
+    	ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    	Brand TEXT NOT NULL,
+    	Model TEXT NOT NULL,
+    	Year INTEGER NOT NULL,
+    	Owner INTEGER REFERENCES users(id)
     )`
 
 	_, err = DB.Exec(createCarsTable)
@@ -44,13 +44,13 @@ func createTables() {
 	}
 
 	createCarCostsTable := `CREATE TABLE IF NOT EXISTS car_costs (
-    	id INTEGER PRIMARY KEY AUTOINCREMENT,
-    	dateTime DATETIME NOT NULL,
-    	title TEXT NOT NULL,
-    	cost INTEGER NOT NULL,
-    	description TEXT NOT NULL,
-    	owner INTEGER REFERENCES users(id),
-    	car INTEGER REFERENCES cars(id)
+    	ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    	DateTime DATETIME NOT NULL,
+    	Title TEXT NOT NULL,
+    	Cost INTEGER NOT NULL,
+    	Description TEXT NOT NULL,
+    	Owner INTEGER REFERENCES users(id),
+    	Car INTEGER REFERENCES cars(id)
     )`
 
 	_, err = DB.Exec(createCarCostsTable)
@@ -59,15 +59,15 @@ func createTables() {
 	}
 
 	createCarFuelChargeTable := `CREATE TABLE IF NOT EXISTS car_fuel_charge (
-    	id INTEGER PRIMARY KEY AUTOINCREMENT,
-    	dateTime DATETIME NOT NULL,
-    	mileage INTEGER NOT NULL,
-    	unitPrice INTEGER NOT NULL,
-    	totalPrice INTEGER NOT NULL,
-    	liters_kwh INTEGER NOT NULL,
-    	description TEXT NOT NULL,
-    	owner INTEGER REFERENCES users(id),
-    	car INTEGER REFERENCES cars(id)
+    	ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    	DateTime DATETIME NOT NULL,
+    	Mileage INTEGER NOT NULL,
+    	UnitPrice INTEGER NOT NULL,
+    	TotalPrice INTEGER NOT NULL,
+    	Liters_kwh INTEGER NOT NULL,
+    	Description TEXT NOT NULL,
+    	Owner INTEGER REFERENCES users(id),
+    	Car INTEGER REFERENCES cars(id)
     )`
 
 	_, err = DB.Exec(createCarFuelChargeTable)
