@@ -1,8 +1,19 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"seplu.pl/personal-space/utils"
+)
 
 func RegisterRoutes(server *gin.Engine) {
-	server.POST("/api/v1/signup", signup)
-	server.POST("/api/v1/login", login)
+	api := server.Group("/api/v1")
+	{
+		api.POST("/signup", signup)
+		api.POST("/login", login)
+		secured := api.Group("/").Use(utils.Auth)
+		{
+			secured.GET("/cars", getCars)
+			secured.POST("/cars", createCar)
+		}
+	}
 }
