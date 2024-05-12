@@ -14,7 +14,7 @@ func signup(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."})
 		return
 	}
-	err = user.Create()
+	err = models.UserService{}.CreateUser(&user)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not create user."})
 		return
@@ -29,7 +29,7 @@ func login(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."})
 		return
 	}
-	err = user.ValidateCredentials()
+	err = models.UserService{}.ValidateUserCredentials(&user)
 	if err != nil {
 		context.JSON(http.StatusUnauthorized, gin.H{"message": "Invalid credentials."})
 		return

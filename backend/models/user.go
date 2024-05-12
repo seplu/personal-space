@@ -13,8 +13,10 @@ type User struct {
 	Password string `binding:"required"`
 }
 
-func (u User) Create() error {
-	query := `INSERT INTO users (email, password) VALUES (?, ?)`
+type UserService struct{}
+
+func (us UserService) CreateUser(u *User) error {
+	query := `INSERT INTO users (Email, Password) VALUES (?, ?)`
 	stmt, err := db.DB.Prepare(query)
 	if err != nil {
 		return err
@@ -37,8 +39,8 @@ func (u User) Create() error {
 	return err
 }
 
-func (u *User) ValidateCredentials() error {
-	query := `SELECT id, password FROM users WHERE email = ?`
+func (us UserService) ValidateUserCredentials(u *User) error {
+	query := `SELECT ID, Password FROM users WHERE Email = ?`
 	row := db.DB.QueryRow(query, u.Email)
 
 	var retrievedPassword string
