@@ -11,8 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Sebastian 'Seplu' Płudowski",
+  "license": "AGPL-3.0-only",
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

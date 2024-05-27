@@ -1,4 +1,4 @@
-const esbuild= require("esbuild");
+const esbuild = require("esbuild");
 const { sassPlugin } = require("esbuild-sass-plugin");
 
 esbuild.build({
