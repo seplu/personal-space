@@ -2,8 +2,9 @@ package utils
 
 import (
 	"errors"
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
+	"strconv"
 	"time"
 )
 
@@ -13,7 +14,7 @@ func GenerateToken(email string, userId int64) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"email":  email,
 		"userId": userId,
-		"exp":    time.Now().Add(time.Hour * 2).Unix(),
+		"exp":    time.Now().Add(time.Hour * 72).Unix(),
 	})
 	return token.SignedString([]byte(secretKey))
 }
@@ -42,17 +43,16 @@ func VerifyToken(token string) (int64, error) {
 	return userId, nil
 }
 
-func Auth(context *gin.Context) {
-	token := context.GetHeader("Authorization")
+func Auth(c *fiber.Ctx) error {
+	token := c.Get("Authorization")
 	if token == "" {
-		context.AbortWithStatusJSON(401, gin.H{"message": "Not authorized."})
-		return
+		return c.Status(401).JSON(fiber.Map{"message": "Not authorized."})
 	}
-	uID, err := VerifyToken(token)
+	uIDRaw, err := VerifyToken(token)
+	uID := strconv.FormatInt(uIDRaw, 10)
 	if err != nil {
-		context.AbortWithStatusJSON(401, gin.H{"message": "Not authorized."})
-		return
+		return c.Status(401).JSON(fiber.Map{"message": "Not authorized."})
 	}
-	context.Set("userId", uID)
-	context.Next()
+	c.Locals("userId", uID)
+	return c.Next()
 }

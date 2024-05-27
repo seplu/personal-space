@@ -9,8 +9,9 @@ import (
 
 type User struct {
 	ID       int64
-	Email    string `binding:"required"`
-	Password string `binding:"required"`
+	Name     string `json:"name"`
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"-" binding:"required"`
 }
 
 type UserService struct{}
