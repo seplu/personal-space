@@ -10,14 +10,14 @@ import (
 type User struct {
 	ID       int64
 	Name     string `json:"name"`
-	Email    string `json:"email" binding:"required"`
+	Username string `json:"username" binding:"required"`
 	Password string `json:"-" binding:"required"`
 }
 
 type UserService struct{}
 
 func (us UserService) CreateUser(u *User) error {
-	query := `INSERT INTO users (Email, Password) VALUES (?, ?)`
+	query := `INSERT INTO users (Username, Password) VALUES (?, ?)`
 	stmt, err := db.DB.Prepare(query)
 	if err != nil {
 		return err
@@ -31,7 +31,7 @@ func (us UserService) CreateUser(u *User) error {
 
 	hashedPassword, err := utils.HashPassword(u.Password)
 
-	result, err := stmt.Exec(u.Email, hashedPassword)
+	result, err := stmt.Exec(u.Username, hashedPassword)
 	if err != nil {
 		return err
 	}
@@ -41,8 +41,8 @@ func (us UserService) CreateUser(u *User) error {
 }
 
 func (us UserService) ValidateUserCredentials(u *User) error {
-	query := `SELECT ID, Password FROM users WHERE Email = ?`
-	row := db.DB.QueryRow(query, u.Email)
+	query := `SELECT ID, Password FROM users WHERE Username = ?`
+	row := db.DB.QueryRow(query, u.Username)
 
 	var retrievedPassword string
 	err := row.Scan(&u.ID, &retrievedPassword)

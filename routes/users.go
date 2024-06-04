@@ -30,7 +30,7 @@ func login(context *fiber.Ctx) error {
 	if err != nil {
 		return context.Status(http.StatusUnauthorized).JSON(fiber.Map{"message": "Invalid credentials."})
 	}
-	token, err := utils.GenerateToken(user.Email, user.ID)
+	token, err := utils.GenerateToken(user.Username, user.ID)
 	if err != nil {
 		return context.Status(http.StatusInternalServerError).JSON(fiber.Map{"message": "Could not generate token."})
 	}

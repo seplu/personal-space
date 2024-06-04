@@ -10,11 +10,11 @@ import (
 
 var secretKey = GetEnv("SECRET_KEY", "useEnvVarForSecretKey")
 
-func GenerateToken(email string, userId int64) (string, error) {
+func GenerateToken(username string, userId int64) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"email":  email,
-		"userId": userId,
-		"exp":    time.Now().Add(time.Hour * 72).Unix(),
+		"username": username,
+		"userId":   userId,
+		"exp":      time.Now().Add(time.Hour * 72).Unix(),
 	})
 	return token.SignedString([]byte(secretKey))
 }
