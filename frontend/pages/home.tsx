@@ -7,7 +7,7 @@ export default function Home() {
     const [password, setPassword] = React.useState("");
     const navigate = useNavigate();
 
-    function login(event) {
+    function login(event:any) {
         event.preventDefault();
         fetch('/api/v1/login', {
             method: 'POST',
@@ -27,7 +27,9 @@ export default function Home() {
             } else {
                 alert(data.message)
             }
-        })
+        }).catch((error) => {
+            console.error('Error:', error);
+        });
     }
 
     return (
@@ -39,7 +41,6 @@ export default function Home() {
                         type="text"
                         id="username"
                         name="username"
-                        defaultValue="username"
                         className="text-input"
                         placeholder="Username"
                         value={username}
@@ -49,7 +50,6 @@ export default function Home() {
                         type="password"
                         id="password"
                         name="password"
-                        defaultValue="password"
                         className="text-input"
                         value={password}
                         placeholder="Password"
