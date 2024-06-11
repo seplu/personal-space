@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./pages/home";
 import About from "./pages/about";
+import Dashboard from "./pages/dashboard";
 
 const root = ReactDOM.createRoot(document.querySelector("#application")!);
 root.render(
@@ -12,6 +13,7 @@ root.render(
         <Routes>
             <Route index element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
     </BrowserRouter>
 );
