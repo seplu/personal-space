@@ -1,11 +1,9 @@
-// @ts-ignore
 import React from "react";
 
-export default function Car() {
+export default function About() {
     return (
         <div>
-            <h1>Car</h1>
+            <h1>About</h1>
         </div>
     );
 }
-

@@ -1,10 +1,8 @@
-// @ts-ignore
 import React from "react";
-import {useNavigate} from "react-router-dom";
 
 export default function Dashboard() {
-    const [token] = React.useState(localStorage.getItem("ps_token"));
-    const navigate = useNavigate();
+    const token = localStorage.getItem("ps_token");
+
     if(!token) {
         return (
             <>
@@ -20,4 +18,3 @@ export default function Dashboard() {
         </div>
     );
 }
-

@@ -1,4 +1,3 @@
-// @ts-ignore
 import React from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -7,7 +6,7 @@ export default function Home() {
     const [password, setPassword] = React.useState("");
     const navigate = useNavigate();
 
-    function login(event:any) {
+    function login(event) {
         event.preventDefault();
         fetch('/api/v1/login', {
             method: 'POST',
