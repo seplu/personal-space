@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/template/html/v2"
 	"seplu.pl/personal-space/db"
 	"seplu.pl/personal-space/routes"
@@ -15,6 +16,10 @@ func main() {
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
+
+	app.Use(
+		logger.New(),
+	)
 
 	app.Static("/", "./public")
 	routes.RegisterRoutes(app)
