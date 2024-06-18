@@ -9,7 +9,7 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "node esbuild.js",
+    "build": "node esbuild.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
