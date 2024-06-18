@@ -8,6 +8,8 @@ RUN mkdir build
 RUN mv pspace public views build/
 
 FROM debian:stable-20240513-slim
+LABEL maintainer="Sebastian 'Seplu' Płudowski"
+LABEL version="0.1.0"
 WORKDIR /app
 COPY --from=builder /app/build /app
 EXPOSE 8080
