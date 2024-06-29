@@ -37,6 +37,12 @@ func (us UserService) CreateUser(u *User) error {
 	}
 	userId, err := result.LastInsertId()
 	u.ID = userId
+	if u.ID == 1 {
+		_, err = db.DB.Exec(`INSERT INTO settings (SettingName, SettingValue) VALUES ('register', 'disabled')`)
+		if err != nil {
+			return err
+		}
+	}
 	return err
 }
 
