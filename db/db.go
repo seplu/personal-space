@@ -85,4 +85,15 @@ func createTables() {
 	if err != nil {
 		panic("Could not create car_fuel_charge table.")
 	}
+
+	createSettingsTable := `CREATE TABLE IF NOT EXISTS settings (
+    	ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    	SettingName TEXT NOT NULL,
+    	SettingValue TEXT NOT NULL
+	)`
+
+	_, err = DB.Exec(createSettingsTable)
+	if err != nil {
+		panic("Could not create settings table.")
+	}
 }
