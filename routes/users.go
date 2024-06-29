@@ -8,16 +8,21 @@ import (
 )
 
 func signup(context *fiber.Ctx) error {
-	var user models.User
-	err := context.BodyParser(&user)
-	if err != nil {
-		return context.Status(http.StatusBadRequest).JSON(fiber.Map{"message": "Could not parse request data."})
+	register := utils.GetSettingValue("register")
+	if register != "disabled" {
+		var user models.User
+		err := context.BodyParser(&user)
+		if err != nil {
+			return context.Status(http.StatusBadRequest).JSON(fiber.Map{"message": "Could not parse request data."})
+		}
+		err = models.UserService{}.CreateUser(&user)
+		if err != nil {
+			return context.Status(http.StatusInternalServerError).JSON(fiber.Map{"message": "Could not create user."})
+		}
+		return context.Status(http.StatusCreated).JSON(fiber.Map{"message": "User created!", "user": user})
+	} else {
+		return context.Status(http.StatusForbidden).JSON(fiber.Map{"message": "Registration is disabled."})
 	}
-	err = models.UserService{}.CreateUser(&user)
-	if err != nil {
-		return context.Status(http.StatusInternalServerError).JSON(fiber.Map{"message": "Could not create user."})
-	}
-	return context.Status(http.StatusCreated).JSON(fiber.Map{"message": "User created!", "user": user})
 }
 
 func login(context *fiber.Ctx) error {
