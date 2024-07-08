@@ -106,7 +106,6 @@ const Login = () => {
         if (!field1 || !field2 || !field3) {
             setErrMsg('Invalid username, email or password');
         }
-        console.log(usernameregister, passwordregister, email)
     }
 
     return (
