@@ -2,7 +2,7 @@ const esbuild = require("esbuild");
 const { sassPlugin } = require("esbuild-sass-plugin");
 
 esbuild.build({
-    entryPoints: ['frontend/application.js', 'frontend/style.scss'],
+    entryPoints: ['frontend/index.js', 'frontend/style.scss'],
     bundle: true,
     minify: true,
     outdir: 'public/assets',

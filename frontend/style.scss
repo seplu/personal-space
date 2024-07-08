@@ -1,77 +1,177 @@
 $base-background-color: #354152;
 $base-color: #7e8ba3;
+$error-background-color: lightpink;
+$error-font-color: firebrick;
+$instructions-background-color: #fdca40;
+$instruction-font-color: #000;
+$login-register-color: seagreen;
+$login-register-font-color: #fff;
 
 $base-font-weight: 300;
 $base-font-size: 1rem;
 $base-line-height: 1.5;
 $base-font-family: Helvetica;
 $base-font-family-fallback: sans-serif;
+
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-}
-html {
-  height: 100%;
 }
 body {
   background-color: $base-background-color;
   color: $base-color;
   font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family, $base-font-family-fallback;
-  margin: 0;
-  min-height: 100%;
-}
-.center-div {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Adjust as needed */
 }
-.login-div {
+.login-wrapper {
   position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
+  width: 420px;
+  height: 450px;
+  background: $login-register-color;
+  border-radius: 10px;
+  color: $login-register-font-color;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: height .2s ease;
+}
+.login-wrapper.active {
+  height: 540px;
+}
+.login-wrapper .form-box {
+  width: 100%;
+  padding: 40px;
+}
+.login-wrapper .form-box.login {
+  transition: translate .18s ease;
+  translate: 0;
+}
+.login-wrapper.active .form-box.login {
+  transition: none;
+  translate: 420px;
+}
+.login-wrapper .form-box.register {
+  position: absolute;
+  transition: none;
+  translate: -420px;
+}
+.login-wrapper.active .form-box.register {
+  transition: translate .18s ease;
+  translate: 0;
+}
+form h1 {
+  font-size: 36px;
   text-align: center;
-  box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.6), 0 10px 10px 0 rgba(0, 0, 0, 0.34);
 }
-.logo {
-  margin-bottom: 30px;
-}
-.login-form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
+form .input-box {
+  position: relative;
   width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
+  height: 50px;
+  margin: 30px 0;
 }
-.login-form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
+.input-box input {
   width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  height: 100%;
+  background: transparent;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, .1);
+  border-radius: 40px;
+  font-size: 16px;
+  color: $login-register-font-color;
+  padding: 20px 45px 20px 20px;
 }
-.login-form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
+.input-box input::placeholder {
+  color: $login-register-font-color;
 }
-.login-form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
+.input-box .icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  translate: 0 -50%;
+  font-size: 16px;
 }
-.login-form .message a {
-  color: #4CAF50;
+form .form-options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14.5px;
+  margin: -15px 0 15px;
+}
+.form-options label input {
+  accent-color: $login-register-font-color;
+  margin-right: 4px;
+}
+.form-options a {
+  color: $login-register-font-color;
   text-decoration: none;
+}
+.form-options a:hover {
+  text-decoration: underline;
+}
+form button {
+  width: 100%;
+  height: 45px;
+  background: $login-register-font-color;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 700;
+}
+form .register {
+  font-size: 14.5px;
+  text-align: center;
+  margin: 20px 0 15px;
+}
+form p.message {
+  font-size: 14.5px;
+  text-align: center;
+  color: $login-register-font-color;
+  text-decoration: none;
+  font-weight: 600;
+}
+form p.message a {
+  color: $login-register-font-color;
+  text-decoration: none;
+}
+form p.message a:hover {
+  text-decoration: underline;
+}
+.register p a {
+  color: $login-register-font-color;
+  text-decoration: none;
+  font-weight: 600;
+}
+.register p a:hover {
+  text-decoration: underline;
+}
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 10px;
+  background: $instructions-background-color;
+  color: $instruction-font-color;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  text-align: left;
+}
+.offscreen {
+  display: none;
+}
+.hide {
+  display: none;
+}
+.errmsg {
+  background-color: $error-background-color;
+  border-radius: 10px;
+  color: $error-font-color;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
