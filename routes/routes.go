@@ -9,6 +9,7 @@ func RegisterRoutes(app *fiber.App) {
 	api := app.Group("/api/v1")
 	api.Post("/signup", signup)
 	api.Post("/login", login)
+	api.Get("/register/check", registerCheck)
 
 	secured := app.Group("/api/v2").Use(utils.Auth)
 	secured.Get("/cars", getCars)

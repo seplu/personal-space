@@ -1,7 +1,7 @@
-import React from "react";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import registerCheck from "../hooks/registerCheck";
 import axios from "../api/axios";
 import {FaEnvelope, FaLock, FaUser} from "react-icons/fa";
 
@@ -12,12 +12,14 @@ const Login = () => {
 
     const LOGIN_URL = "/login"
     const {setAuth} = useAuth()
+    const [isRegisterEnabled, setIsRegisterEnabled] = useState(true);
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
 
     const userRef = useRef(null);
+    const registerUserRef = useRef(null);
     const errRef = useRef(null);
 
     const [username, setUsername] = useState('');
@@ -44,6 +46,13 @@ const Login = () => {
         setAction('')
     }
 
+    useEffect(() => {
+        const checkRegistration = async () => {
+            const registerStatus = await registerCheck();
+            setIsRegisterEnabled(registerStatus === 'enabled');
+        };
+        checkRegistration().then();
+    }, []);
     useEffect(() => {
         userRef.current.focus();
     }, []);
@@ -162,11 +171,11 @@ const Login = () => {
                             <a href="#">Forgot password?</a>
                         </div>
                         <button type="submit">Login</button>
+                        {isRegisterEnabled && (
                         <div className="register">
                             <p>Don't have an account? <a href="#" onClick={registerLink}>Register</a></p>
                         </div>
-                        <p className="message">&copy; 2024 - <a href="https://github.com/seplu/personal-space/releases">v:
-                            0.1.0</a></p>
+                        )}
                     </form>
                 </div>
 
@@ -177,7 +186,7 @@ const Login = () => {
                             <input
                                 type="text"
                                 id="usernameregister"
-                                ref={userRef}
+                                ref={registerUserRef}
                                 autoComplete="off"
                                 required={true}
                                 className="text-input"
@@ -221,9 +230,6 @@ const Login = () => {
                                 onBlur={() => setPwdFocus(false)}
                             />
                             <FaLock className="icon"/>
-                        </div>
-                        <div className="form-options">
-                            <label><input type="checkbox"/>I agree to the terms & conditions</label>
                         </div>
                         <button type="submit">Register</button>
                         <div className="register">
