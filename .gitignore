@@ -31,4 +31,5 @@ node_modules
 package-lock.json
 
 # DEV
-public
+public/assets/*.js
+public/assets/*.css
