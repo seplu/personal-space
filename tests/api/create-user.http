@@ -2,6 +2,7 @@ POST http://localhost:8080/api/v1/signup
 content-type: application/json
 
 {
-  "username": "user@localhost.net",
-  "password": "test"
+  "username": "user",
+  "password": "test",
+  "email": "user@localhost.net"
 }
