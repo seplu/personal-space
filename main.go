@@ -18,7 +18,9 @@ func main() {
 	})
 
 	app.Use(
-		logger.New(),
+		logger.New(logger.Config{
+			Format: "[${ip}]:${port} ${status} - ${method} ${path}\n${body}\n${resBody}\n",
+		}),
 	)
 
 	app.Static("/", "./public")
