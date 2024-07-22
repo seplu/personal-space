@@ -11,6 +11,7 @@ const Login = () => {
     const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
     const LOGIN_URL = "/login"
+    const REGISTER_URL = "/signup"
     const {setAuth} = useAuth()
     const [isRegisterEnabled, setIsRegisterEnabled] = useState(true);
 
@@ -49,7 +50,7 @@ const Login = () => {
     useEffect(() => {
         const checkRegistration = async () => {
             const registerStatus = await registerCheck();
-            setIsRegisterEnabled(registerStatus === 'enabled');
+            setIsRegisterEnabled(registerStatus === 'enabled' || registerStatus === 'not found');
         };
         checkRegistration().then();
     }, []);
@@ -114,6 +115,30 @@ const Login = () => {
         const field3 = EMAIL_REGEXP.test(email);
         if (!field1 || !field2 || !field3) {
             setErrMsg('Invalid username, email or password');
+        }
+        try {
+            const response = await axios.post(REGISTER_URL,
+                JSON.stringify({
+                    Username: usernameregister,
+                    Password: passwordregister,
+                    Email: email,
+                }),
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true,
+                })
+            const registerResponse = response?.data?.value;
+            console.log(registerResponse);
+        } catch (err) {
+            if (!err?.response) {
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 400) {
+                setErrMsg('Missing username, email or password');
+            } else {
+                setErrMsg('Registration failed');
+            }
         }
     }
 
