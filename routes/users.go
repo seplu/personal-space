@@ -41,3 +41,11 @@ func login(context *fiber.Ctx) error {
 	}
 	return context.Status(http.StatusOK).JSON(fiber.Map{"message": "Logged in!", "token": token})
 }
+
+func users(context *fiber.Ctx) error {
+	users, err := models.UserService{}.GetUsers()
+	if err != nil {
+		return context.Status(http.StatusInternalServerError).JSON(fiber.Map{"message": "Could not get users.", "error": err.Error()})
+	}
+	return context.Status(http.StatusOK).JSON(fiber.Map{"users": users})
+}

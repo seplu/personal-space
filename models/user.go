@@ -64,3 +64,33 @@ func (us UserService) ValidateUserCredentials(u *User) error {
 	}
 	return nil
 }
+
+func (us UserService) GetUsers() ([]User, error) {
+	query := `SELECT ID, Username, Email FROM users`
+	rows, err := db.DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer func(rows *sql.Rows) {
+		err := rows.Close()
+		if err != nil {
+
+		}
+	}(rows)
+
+	var users []User
+	for rows.Next() {
+		var user User
+		err := rows.Scan(&user.ID, &user.Username, &user.Email)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}

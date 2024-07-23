@@ -10,10 +10,12 @@ func RegisterRoutes(app *fiber.App) {
 	api.Post("/signup", signup)
 	api.Post("/login", login)
 	api.Get("/register/check", registerCheck)
+	api.Get("/users", users).Use(utils.Auth)
 
 	secured := app.Group("/api/v2").Use(utils.Auth)
 	secured.Get("/cars", getCars)
 	secured.Post("/cars", createCar)
+	secured.Get("/users", users)
 
 	frontendRoutes := []string{
 		"/",
