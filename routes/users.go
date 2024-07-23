@@ -47,5 +47,5 @@ func users(context *fiber.Ctx) error {
 	if err != nil {
 		return context.Status(http.StatusInternalServerError).JSON(fiber.Map{"message": "Could not get users.", "error": err.Error()})
 	}
-	return context.Status(http.StatusOK).JSON(fiber.Map{"users": users})
+	return context.Status(http.StatusOK).JSON(users)
 }
