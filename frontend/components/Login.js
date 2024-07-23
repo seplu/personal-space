@@ -130,6 +130,9 @@ const Login = () => {
                     withCredentials: true,
                 })
             const registerResponse = response?.data?.value;
+            setUsernameReg("");
+            setPasswordReg("");
+            setEmail("");
             console.log(registerResponse);
         } catch (err) {
             if (!err?.response) {
