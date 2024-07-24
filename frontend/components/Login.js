@@ -146,7 +146,7 @@ const Login = () => {
     }
 
     return (
-        <>
+        <div className="login-register-form">
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <p id="uidnote" className={userFocus && usernameregister && !validName ? "instructions" : "offscreen"}>
                 4 to 24 characters. <br/>
@@ -266,7 +266,7 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

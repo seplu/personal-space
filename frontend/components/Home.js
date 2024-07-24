@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
+import Navbar from "./Navbar";
 
 const Home = () => {
     const { setAuth } = useContext(AuthContext);
@@ -14,7 +15,7 @@ const Home = () => {
 
     return (
         <section>
-            <h1>Home</h1>
+            <Navbar />
             <br />
             <p>You are logged in!</p>
             <br />

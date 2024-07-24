@@ -23,9 +23,15 @@ body {
   color: $base-color;
   font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family, $base-font-family-fallback;
   min-height: 100vh;
+}
+
+// Login/Register Form
+
+.login-register-form {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
 }
 .login-wrapper {
   position: relative;
@@ -174,4 +180,15 @@ form p.message a:hover {
   font-weight: bold;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+// NavBar
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 80px;
+  background: #1b2430;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
