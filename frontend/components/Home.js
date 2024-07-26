@@ -10,7 +10,7 @@ const Home = () => {
 
     const logout = async () => {
         setAuth({});
-        navigate('/');
+        navigate('/login');
     }
 
     return (
