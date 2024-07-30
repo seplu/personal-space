@@ -61,6 +61,18 @@ func Login(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(fiber.Map{"message": "Logged in!", "token": token})
 }
 
+func Logout(c *fiber.Ctx) error {
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    "",
+		Expires:  time.Now().Add(time.Hour * -1),
+		HTTPOnly: true,
+	}
+	c.Cookie(&cookie)
+	return c.Status(http.StatusOK).JSON(fiber.Map{"message": "Logged out!"})
+
+}
+
 func User(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
 	token, err := jwt.ParseWithClaims(cookie, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
