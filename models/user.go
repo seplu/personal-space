@@ -8,7 +8,7 @@ import (
 )
 
 type User struct {
-	ID       int64
+	ID       int64  `json:"id"`
 	Username string `json:"username" binding:"required"`
 	Password string `json:"-" binding:"required"`
 	Email    string `json:"email" binding:"required"`
@@ -63,6 +63,18 @@ func (us UserService) ValidateUserCredentials(u *User) error {
 		return errors.New("invalid credentials")
 	}
 	return nil
+}
+
+func (us UserService) GetUser(u *User) (*User, error) {
+	query := `SELECT ID, Username, Email FROM users WHERE ID = ?`
+	row := db.DB.QueryRow(query, u.ID)
+
+	var user User
+	err := row.Scan(&user.ID, &user.Username, &user.Email)
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
 }
 
 func (us UserService) GetUsers() ([]User, error) {
