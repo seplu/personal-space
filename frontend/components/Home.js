@@ -1,11 +1,13 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import axios from "../api/Axios";
 
 const Home = () => {
     const navigate = useNavigate();
 
     const logout = async () => {
+        await axios.post("/logout");
         navigate('/login');
     }
 
