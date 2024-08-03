@@ -31,7 +31,7 @@ func Register(c *fiber.Ctx) error {
 		if err != nil {
 			return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"message": "Could not create user", "error": err.Error()})
 		}
-		return c.Status(http.StatusCreated).JSON(fiber.Map{"message": "User created", "user": user})
+		return c.Status(http.StatusCreated).JSON(fiber.Map{"message": "User created"})
 	} else {
 		return c.Status(http.StatusForbidden).JSON(fiber.Map{"message": "Registration is disabled"})
 	}
