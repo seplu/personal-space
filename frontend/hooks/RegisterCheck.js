@@ -1,6 +1,6 @@
-import axios from "../api/axios";
+import axios from "../api/Axios";
 
-const registerCheck = async () => {
+const RegisterCheck = async () => {
     const REGISTER_CHECK_URL = "/register/check"
     try {
         const response = await axios.get(REGISTER_CHECK_URL);
@@ -10,4 +10,4 @@ const registerCheck = async () => {
         return false;
     }
 };
-export default registerCheck;
+export default RegisterCheck;

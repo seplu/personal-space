@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useLocation} from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import registerCheck from "../hooks/registerCheck";
-import axios from "../api/axios";
+import { useNavigate} from "react-router-dom";
+import RegisterCheck from "../hooks/RegisterCheck";
+import axios from "../api/Axios";
 import {FaEnvelope, FaLock, FaUser} from "react-icons/fa";
 
 const Login = () => {
@@ -12,12 +11,9 @@ const Login = () => {
 
     const LOGIN_URL = "/login"
     const REGISTER_URL = "/signup"
-    const {setAuth} = useAuth()
     const [isRegisterEnabled, setIsRegisterEnabled] = useState(true);
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || '/';
 
     const userRef = useRef(null);
     const registerUserRef = useRef(null);
@@ -49,7 +45,7 @@ const Login = () => {
 
     useEffect(() => {
         const checkRegistration = async () => {
-            const registerStatus = await registerCheck();
+            const registerStatus = await RegisterCheck();
             setIsRegisterEnabled(registerStatus === 'enabled' || registerStatus === 'not found');
         };
         checkRegistration().then();
@@ -87,11 +83,10 @@ const Login = () => {
                     },
                     withCredentials: true,
                 })
-            const accessToken = response?.data?.token;
-            setAuth({username, password, accessToken});
-            setUsername("");
+            const name = response?.data?.name;
+            setUsername(name);
             setPassword("");
-            navigate(from, {replace: true});
+            navigate("/");
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -130,10 +125,11 @@ const Login = () => {
                     withCredentials: true,
                 })
             const registerResponse = response?.data?.value;
+            console.log(registerResponse);
             setUsernameReg("");
             setPasswordReg("");
             setEmail("");
-            console.log(registerResponse);
+            navigate("/login")
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
