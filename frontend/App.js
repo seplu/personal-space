@@ -1,10 +1,9 @@
 import React from "react";
 import {Routes, Route, BrowserRouter} from "react-router-dom";
-import ProtectedRoutes from "./utils/ProtectedRoutes";
-
 import Admin from "./components/Admin";
-import Login from "./components/Login";
 import Home from "./components/Home";
+import Layout from "./components/Layout";
+import Login from "./components/Login";
 import Missing from "./components/Missing";
 
 function App() {
@@ -14,7 +13,7 @@ function App() {
                 {/* public routes */}
                 <Route path="login" element={<Login />} />
                 {/* protected routes */}
-                <Route element={<ProtectedRoutes />}>
+                <Route element={<Layout />}>
                     <Route path="/" element={<Home/>} exact/>
                     <Route path="admin" element={<Admin/>} />
                 </Route>

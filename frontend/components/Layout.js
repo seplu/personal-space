@@ -1,10 +1,27 @@
 import React from "react";
-import {Outlet} from 'react-router-dom'
+import Header from "./Header";
+import ProtectedRoutes from "../utils/ProtectedRoutes";
+import Footer from "./Footer";
+import Sidebar from "./Sidebar";
 
 const Layout = () => {
     return (
         <main>
-            <Outlet />
+            <div className="grid-container">
+                <div className="grid-item sidebar">
+                    <Sidebar/>
+                </div>
+                <div className="grid-item header">
+                    <Header/>
+                </div>
+                <div className="grid-item content">
+                    <h2>Content</h2>
+                    <ProtectedRoutes/>
+                </div>
+                <div className="grid-item footer">
+                    <Footer/>
+                </div>
+            </div>
         </main>
     )
 }
