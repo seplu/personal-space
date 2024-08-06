@@ -255,26 +255,40 @@ form p.message a:hover {
 }
 
 // Header
-
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: #1b2430;
-  height: 80px;
+  height: 50px;
+  width: 100%;
+  padding: 0 20px;
 }
-// Navbar
+.logo {
+  color: white;
+  font-size: 1.5rem;
+}
+.right-section {
+  display: flex;
+  align-items: center;
+}
+.profile-icon {
+  color: white;
+  font-size: 1.5rem;
+}
 
+// Navbar
 .navbar {
   background: #1b2430;
   height: 50px;
 }
 
 // Content
-
 .content {
   min-height: calc(100vh - 230px);
 }
 
 // Footer
-
 .footer {
   background: #1b2430;
   height: 100px;
