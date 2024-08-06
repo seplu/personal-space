@@ -186,16 +186,16 @@ form p.message a:hover {
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 11fr;
-  grid-template-areas: "sidebar header" "sidebar content" "sidebar footer";
+  grid-template-columns: 12fr;
+  grid-template-areas: "header" "navbar" "content" "footer";
 }
 .grid-item {
   border: 1px solid #ddd;
   font-size: 1.5rem;
   text-align: center;
 }
-.sidebar {
-  grid-area: sidebar;
+.navbar {
+  grid-area: navbar;
 }
 .header {
   grid-area: header;
@@ -239,7 +239,7 @@ form p.message a:hover {
     grid-template-columns: 1fr;
     grid-template-areas:
 "header"
-"sidebar"
+"navbar"
 "content"
 "footer";
   }
@@ -249,18 +249,9 @@ form p.message a:hover {
   .grid-content-4 {
     grid-template-columns: 1fr;
   }
-  .sidebar {
-    min-height: auto;
-  }
   .content {
     min-height: auto;
   }
-}
-
-// Sidebar
-
-.sidebar {
-  background: #1b2430;
 }
 
 // Header
@@ -269,11 +260,17 @@ form p.message a:hover {
   background: #1b2430;
   height: 80px;
 }
+// Navbar
+
+.navbar {
+  background: #1b2430;
+  height: 50px;
+}
 
 // Content
 
 .content {
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 230px);
 }
 
 // Footer
