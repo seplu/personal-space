@@ -281,6 +281,41 @@ form p.message a:hover {
 .navbar {
   background: #1b2430;
   height: 50px;
+  display: grid;
+  place-items: center;
+}
+.navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navigation li {
+  display: inline-block;
+  margin: 0 10px;
+}
+.navigation a {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: #ddd;
+}
+.navigation--inline ul {
+  display: flex;
+}
+.navigation-icon {
+  block-size: 1em;
+  display: inline-block;
+  inline-size: 1em;
+  vertical-align: middle;
+}
+.navigation span {
+  font-size: 1rem;
+  margin-left: 5px;
+}
+@media screen and (max-width: 960px) {
+  .navigation span {
+    display: none;
+  }
 }
 
 // Content
