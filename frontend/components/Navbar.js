@@ -7,46 +7,47 @@ import {
     IoPulseOutline,
     IoRibbonOutline
 } from "react-icons/io5";
+import {Link} from "react-router-dom";
 
 function Navbar() {
     return (
         <nav className="navigation navigation--inline">
             <ul>
                 <li>
-                    <a href="#">
+                    <Link to="/">
                         <IoHomeOutline className="navigation-icon"/>
                         <span className="invisible">Home</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="#">
+                    <Link to="/car">
                         <IoCarSportOutline className="navigation-icon"/>
                         <span className="invisible">Car</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="#">
+                    <Link to="/finance">
                         <IoCashOutline className="navigation-icon"/>
                         <span className="invisible">Finance</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="#">
+                    <Link to="/health">
                         <IoPulseOutline className="navigation-icon"/>
                         <span className="invisible">Health</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="#">
+                    <Link to="/habits">
                         <IoRibbonOutline className="navigation-icon"/>
                         <span className="invisible">Habits tracker</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="#">
+                    <Link to="/collection">
                         <IoLibraryOutline className="navigation-icon"/>
                         <span className="invisible">Collection</span>
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </nav>
