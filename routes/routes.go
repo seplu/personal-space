@@ -7,6 +7,8 @@ import (
 
 func RegisterRoutes(app *fiber.App) {
 	api := app.Group("/api/v1")
+	api.Get("/cars", controllers.GetCars)
+	api.Post("/cars", controllers.CreateCar)
 	api.Post("/login", controllers.Login)
 	api.Post("/logout", controllers.Logout)
 	api.Post("/register", controllers.Register)
@@ -16,6 +18,7 @@ func RegisterRoutes(app *fiber.App) {
 	frontendRoutes := []string{
 		"/",
 		"/admin",
+		"/car",
 		"/login",
 	}
 	for _, route := range frontendRoutes {
