@@ -13,11 +13,6 @@ func RegisterRoutes(app *fiber.App) {
 	api.Get("/register/check", registerCheck)
 	api.Get("/user", controllers.User)
 
-	secured := app.Group("/api/v2")
-	secured.Get("/cars", getCars)
-	secured.Post("/cars", createCar)
-	secured.Get("/users", users)
-
 	frontendRoutes := []string{
 		"/",
 		"/admin",
