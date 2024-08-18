@@ -35,6 +35,9 @@ func createTables() {
     	ID INTEGER PRIMARY KEY AUTOINCREMENT,
     	Brand TEXT NOT NULL,
     	Model TEXT NOT NULL,
+    	Engine TEXT,
+    	LicensePlate TEXT,
+    	Mileage INTEGER,
     	Year INTEGER NOT NULL,
     	Owner INTEGER REFERENCES users(id)
     )`
