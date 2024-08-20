@@ -164,7 +164,6 @@ form p.message a:hover {
   color: $instruction-font-color;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
-  position: relative;
   text-align: left;
 }
 .offscreen {
@@ -174,12 +173,22 @@ form p.message a:hover {
   display: none;
 }
 .errmsg {
+  font-size: 1rem;
   background-color: $error-background-color;
   border-radius: 10px;
   color: $error-font-color;
-  font-weight: bold;
+  text-align: center;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+}
+.notify {
+    font-size: 1rem;
+    background-color: $instructions-background-color;
+    border-radius: 10px;
+    color: $instruction-font-color;
+    text-align: center;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 // Grid
@@ -331,4 +340,16 @@ form p.message a:hover {
 .footer {
   background: #1b2430;
   height: 100px;
+}
+
+// Car
+.car-form {
+  margin-top: 20px;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  margin: 10px 0;
 }
