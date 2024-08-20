@@ -10,7 +10,7 @@ const Login = () => {
     const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
     const LOGIN_URL = "/login"
-    const REGISTER_URL = "/signup"
+    const REGISTER_URL = "/register"
     const [isRegisterEnabled, setIsRegisterEnabled] = useState(true);
 
     const navigate = useNavigate();
@@ -35,11 +35,17 @@ const Login = () => {
 
     const [errMsg, setErrMsg] = useState('');
     const [action, setAction] = useState('');
+    const [notifyMsg, setNotifyMsg] = useState('');
 
     const registerLink = () => {
+        setUsername('');
+        setPassword('');
         setAction(' active')
     }
     const loginLink = () => {
+        setUsernameReg('');
+        setPasswordReg('');
+        setEmail('');
         setAction('')
     }
 
@@ -68,6 +74,22 @@ const Login = () => {
     useEffect(() => {
         setErrMsg('');
     }, [usernameregister, passwordregister])
+    useEffect(() => {
+        if (errMsg) {
+            const timer = setTimeout(() => {
+                setErrMsg('');
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [errMsg]);
+    useEffect(() => {
+        if (notifyMsg) {
+            const timer = setTimeout(() => {
+                setNotifyMsg('');
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [notifyMsg]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -85,7 +107,7 @@ const Login = () => {
                 })
             const name = response?.data?.name;
             setUsername(name);
-            setPassword("");
+            setPassword('');
             navigate("/");
         } catch (err) {
             if (!err?.response) {
@@ -124,12 +146,13 @@ const Login = () => {
                     },
                     withCredentials: true,
                 })
-            const registerResponse = response?.data?.value;
-            console.log(registerResponse);
-            setUsernameReg("");
-            setPasswordReg("");
-            setEmail("");
-            navigate("/login")
+            const registerResponse = response?.data?.name;
+            setUsername(registerResponse);
+            setUsernameReg('');
+            setPasswordReg('');
+            setEmail('');
+            setNotifyMsg("User created successfully. You can log in.");
+            loginLink();
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -143,25 +166,11 @@ const Login = () => {
 
     return (
         <div className="login-register-form">
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <p id="uidnote" className={userFocus && usernameregister && !validName ? "instructions" : "offscreen"}>
-                4 to 24 characters. <br/>
-                Must begin with a letter.<br/>
-                Letters, numbers, underscores, hyphens allowed.
-            </p>
-            <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-                8 to 24 characters.<br/>
-                Must include uppercase and lowercase letters, a number<br/>and a special character.<br/>
-                Allowed special characters: <span aria-label="exclamation mark">!</span> <span
-                aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span
-                aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-            </p>
-            <p id="emailnote" className={emailFocus && !validEmail ? "instructions" : "offscreen"}>
-                Must be a valid email address with @ and domain.
-            </p>
             <div className={`login-wrapper${action}`}>
                 <div className="form-box login">
                     <form onSubmit={handleSubmit} className="login-form">
+                        <p className={notifyMsg ? "notify" : "offscreen"} aria-live="assertive">{notifyMsg}</p>
+                        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         <h1>Login</h1>
                         <div className="input-box">
                             <input
@@ -196,15 +205,17 @@ const Login = () => {
                         </div>
                         <button type="submit">Login</button>
                         {isRegisterEnabled && (
-                        <div className="register">
-                            <p>Don't have an account? <a href="#" onClick={registerLink}>Register</a></p>
-                        </div>
+                            <div className="register">
+                                <p>Don't have an account? <a href="#" onClick={registerLink}>Register</a></p>
+                            </div>
                         )}
                     </form>
                 </div>
 
                 <div className="form-box register">
-                    <form onSubmit={register} className="register-form">
+                <form onSubmit={register} className="register-form">
+                        <p className={notifyMsg ? "notify" : "offscreen"} aria-live="assertive">{notifyMsg}</p>
+                        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         <h1>Registration</h1>
                         <div className="input-box">
                             <input
@@ -223,6 +234,12 @@ const Login = () => {
                             />
                             <FaUser className="icon"/>
                         </div>
+                        <p id="uidnote"
+                           className={userFocus && usernameregister && !validName ? "instructions" : "offscreen"}>
+                            4 to 24 characters. <br/>
+                            Must begin with a letter.<br/>
+                            Letters, numbers, underscores, hyphens allowed.
+                        </p>
                         <div className="input-box">
                             <input
                                 type="email"
@@ -239,6 +256,9 @@ const Login = () => {
                             />
                             <FaEnvelope className="icon"/>
                         </div>
+                        <p id="emailnote" className={emailFocus && !validEmail ? "instructions" : "offscreen"}>
+                            Must be a valid email address with @ and domain.
+                        </p>
                         <div className="input-box">
                             <input
                                 type="password"
@@ -255,6 +275,13 @@ const Login = () => {
                             />
                             <FaLock className="icon"/>
                         </div>
+                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                            8 to 24 characters.<br/>
+                            Must include uppercase and lowercase letters, a number<br/>and a special character.<br/>
+                            Allowed special characters: <span aria-label="exclamation mark">!</span> <span
+                            aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span
+                            aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                        </p>
                         <button type="submit">Register</button>
                         <div className="register">
                             <p>Already have an account? <a href="#" onClick={loginLink}>Login</a></p>
