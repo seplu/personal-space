@@ -69,7 +69,7 @@ func (cs CarService) GetCarList(userId int64) ([]Car, error) {
 }
 
 func (cs CarService) CreateCar(c *Car, userId int64) error {
-	query := `INSERT INTO cars (Brand, Model, Year, Owner) VALUES (?, ?, ?, ?)`
+	query := `INSERT INTO cars (Brand, Model, Year, LicensePlate, Engine, Mileage, Owner) VALUES (?, ?, ?, ?, ?, ?, ?)`
 	stmt, err := db.DB.Prepare(query)
 	if err != nil {
 		return err
@@ -80,7 +80,7 @@ func (cs CarService) CreateCar(c *Car, userId int64) error {
 			return
 		}
 	}(stmt)
-	result, err := stmt.Exec(c.Brand, c.Model, c.Year, userId)
+	result, err := stmt.Exec(c.Brand, c.Model, c.Year, c.LicensePlate, c.Engine, c.Mileage, userId)
 	if err != nil {
 		return err
 	}

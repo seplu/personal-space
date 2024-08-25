@@ -73,10 +73,10 @@ const Car = () => {
                 JSON.stringify({
                     Brand: Brand,
                     Model: Model,
-                    Year: parseInt(Year,4),
+                    Year: Number(Year),
                     LicensePlate: LicensePlate,
                     Engine: Engine,
-                    Mileage: parseInt(Mileage,12)
+                    Mileage: Number(Mileage),
                 }),
                 {
                     headers: {
@@ -131,8 +131,7 @@ const Car = () => {
                         </label>
                         <label>
                             License Plate:
-                            <input type="text" name="LicensePlate" value={LicensePlate}
-                                   onChange={(e) => setLicensePlate(e.target.value)}/>
+                            <input type="text" name="LicensePlate" value={LicensePlate} onChange={(e) => setLicensePlate(e.target.value)}/>
                         </label>
                         <label>
                             Mileage:
