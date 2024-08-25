@@ -7,8 +7,7 @@ const Car = () => {
     const navigate = useNavigate();
     const CAR_REGEXP = /^[a-zA-Z0-9]{2,20}$/;
     const CAR_YEAR_REGEXP = /^[0-9]{4}$/;
-
-    const CREATE_CAR_URL = "/cars";
+    const CARS_URL = "/cars";
 
     const [Brand, setBrand] = useState("");
     const [Model, setModel] = useState("");
@@ -16,6 +15,8 @@ const Car = () => {
     const [LicensePlate, setLicensePlate] = useState("");
     const [Engine, setEngine] = useState("");
     const [Mileage, setMileage] = useState("");
+
+    const [cars, setCars] = useState([]);
 
     const [validYear, setValidYear] = useState(false);
     const [validCar, setValidCar] = useState(false);
@@ -40,6 +41,22 @@ const Car = () => {
         setValidCarDetails(result);
     }, [LicensePlate, Engine, Mileage]);
 
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await axios.get(CARS_URL, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                });
+                const result = await response.data;
+                setCars(result);
+            } catch (error) {
+                console.error('Error fetching cars:', error);
+            }})();
+    }, []);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const field1 = CAR_REGEXP.test(Brand);
@@ -52,7 +69,7 @@ const Car = () => {
             setErrMsg("Invalid input");
         }
         try {
-            const response = await axios.post(CREATE_CAR_URL,
+            const response = await axios.post(CARS_URL,
                 JSON.stringify({
                     Brand: Brand,
                     Model: Model,
@@ -110,7 +127,7 @@ const Car = () => {
                         </label>
                         <label>
                             Year:
-                            <input type="number" name="Year" value={Year} aria-invalid={validYear ? "false" : "true"} onChange={(e) => setYear(e.target.value)}/>
+                            <input type="text" name="Year" value={Year} aria-invalid={validYear ? "false" : "true"} onChange={(e) => setYear(e.target.value)}/>
                         </label>
                         <label>
                             License Plate:
@@ -125,6 +142,22 @@ const Car = () => {
                     </form>
                 </div>
             )}
+            {errMsg && <p className="errmsg">{errMsg}</p>}
+            <div className="car-list">
+                {cars.length === 0 ? (
+                    <p>0</p>
+                ) : (
+                    cars.map((car) =>
+                        <div key={car.id}>
+                            <h2>{car["brand"]} {car["model"]}</h2>
+                            <p>Year: {car["year"]}</p>
+                            <p>License Plate: {car["license_plate"]}</p>
+                            <p>Engine: {car["engine"]}</p>
+                            <p>Mileage: {car["mileage"]}</p>
+                        </div>
+                    )
+                )}
+            </div>
         </section>
     );
 };
