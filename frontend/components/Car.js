@@ -18,28 +18,11 @@ const Car = () => {
 
     const [cars, setCars] = useState([]);
 
-    const [validYear, setValidYear] = useState(false);
-    const [validCar, setValidCar] = useState(false);
-    const [validCarDetails, setValidCarDetails] = useState(false);
-
     const [errMsg, setErrMsg] = useState('');
 
     const toggleForm = () => {
         setShowForm(!showForm);
     };
-
-    useEffect(() => {
-        const result = CAR_YEAR_REGEXP.test(Year);
-        setValidYear(result);
-    }, [Year]);
-    useEffect(() => {
-        const result = CAR_REGEXP.test(Brand) && CAR_REGEXP.test(Model);
-        setValidCar(result);
-    }, [Brand, Model]);
-    useEffect(() => {
-        const result = CAR_REGEXP.test(LicensePlate) && CAR_REGEXP.test(Engine) && CAR_REGEXP.test(Mileage);
-        setValidCarDetails(result);
-    }, [LicensePlate, Engine, Mileage]);
 
     useEffect(() => {
         (async () => {
@@ -56,6 +39,14 @@ const Car = () => {
                 console.error('Error fetching cars:', error);
             }})();
     }, []);
+    useEffect(() => {
+        if (errMsg) {
+            const timer = setTimeout(() => {
+                setErrMsg('');
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [errMsg]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -67,41 +58,42 @@ const Car = () => {
         const field6 = CAR_REGEXP.test(Mileage);
         if (!field1 || !field2 || !field3 || !field4 || !field5 || !field6) {
             setErrMsg("Invalid input");
-        }
-        try {
-            const response = await axios.post(CARS_URL,
-                JSON.stringify({
-                    Brand: Brand,
-                    Model: Model,
-                    Year: Number(Year),
-                    LicensePlate: LicensePlate,
-                    Engine: Engine,
-                    Mileage: Number(Mileage),
-                }),
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                });
-            const createCarResponse = response?.data?.data;
-            console.log(createCarResponse);
-            setBrand("");
-            setModel("");
-            setYear("");
-            setLicensePlate("");
-            setEngine("");
-            setMileage("");
-            navigate("/car");
-        } catch (err) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing data');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login failed');
+        } else {
+            try {
+                const response = await axios.post(CARS_URL,
+                    JSON.stringify({
+                        brand: Brand,
+                        model: Model,
+                        year: Number(Year),
+                        license_plate: LicensePlate,
+                        engine: Engine,
+                        mileage: Number(Mileage),
+                    }),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        withCredentials: true
+                    });
+                const createCarResponse = response?.data?.data;
+                console.log(createCarResponse);
+                setBrand("");
+                setModel("");
+                setYear("");
+                setLicensePlate("");
+                setEngine("");
+                setMileage("");
+                navigate("/car");
+            } catch (err) {
+                if (!err?.response) {
+                    setErrMsg('No Server Response');
+                } else if (err.response?.status === 400) {
+                    setErrMsg('Missing data');
+                } else if (err.response?.status === 401) {
+                    setErrMsg('Unauthorized');
+                } else {
+                    setErrMsg('Login failed');
+                }
             }
         }
     };
@@ -127,7 +119,7 @@ const Car = () => {
                         </label>
                         <label>
                             Year:
-                            <input type="text" name="Year" value={Year} aria-invalid={validYear ? "false" : "true"} onChange={(e) => setYear(e.target.value)}/>
+                            <input type="text" name="Year" value={Year} onChange={(e) => setYear(e.target.value)}/>
                         </label>
                         <label>
                             License Plate:
