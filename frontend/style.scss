@@ -1,11 +1,16 @@
-$base-background-color: #354152;
-$base-color: #7e8ba3;
+$base-color: #1e1f22; //354152
+$base-background-color: #2b2d30; //7e8ba3
 $error-background-color: lightpink;
 $error-font-color: firebrick;
 $instructions-background-color: #fdca40;
 $instruction-font-color: #000;
 $login-register-color: #2E8B57;
 $login-register-font-color: #fff;
+
+$header-footer-background-color: #1e1f22; //#2b2d30;
+$header-footer-link-color: #80858c;
+
+$navbar-underline: #4a8361;
 
 $base-font-weight: 300;
 $base-font-size: 1rem;
@@ -199,7 +204,7 @@ form p.message a:hover {
   grid-template-areas: "header" "navbar" "content" "footer";
 }
 .grid-item {
-  border: 1px solid #ddd;
+  //border: 1px solid #ddd;
   font-size: 1.5rem;
   text-align: center;
 }
@@ -268,13 +273,13 @@ form p.message a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1b2430;
+  background: $header-footer-background-color;
   height: 50px;
   width: 100%;
   padding: 0 20px;
 }
 .logo {
-  color: white;
+  color: $header-footer-link-color;
   font-size: 1.5rem;
 }
 .right-section {
@@ -282,7 +287,7 @@ form p.message a:hover {
   align-items: center;
 }
 .profile-icon {
-  color: white;
+  color: $header-footer-link-color;
   font-size: 1.5rem;
 }
 .profile-icon span {
@@ -292,7 +297,7 @@ form p.message a:hover {
 
 // Navbar
 .navbar {
-  background: #1b2430;
+  background: $header-footer-background-color;
   height: 50px;
   display: grid;
   place-items: center;
@@ -310,7 +315,7 @@ form p.message a:hover {
   display: block;
   position: relative;
   text-decoration: none;
-  color: #ddd;
+  color: $header-footer-link-color;
 }
 .navigation--inline ul {
   display: flex;
@@ -325,6 +330,19 @@ form p.message a:hover {
   font-size: 1rem;
   margin-left: 5px;
 }
+.navigation a.active {
+  position: relative;
+}
+.navigation a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: $navbar-underline; // or any color you prefer
+}
+
 @media screen and (max-width: 960px) {
   .navigation span {
     display: none;
@@ -338,16 +356,21 @@ form p.message a:hover {
 
 // Footer
 .footer {
-  background: #1b2430;
+  background: $header-footer-background-color;
   height: 100px;
 }
 
-// Car
+// Cars
 .car-form {
   margin-top: 20px;
   padding: 20px;
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.car-list-item {
+  background: #333333;
+  border-radius: 15px;
 }
 
 button {

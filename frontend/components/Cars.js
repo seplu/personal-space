@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "../api/Axios";
 
-const Car = () => {
+const Cars = () => {
     const [showForm, setShowForm] = useState(false);
     const navigate = useNavigate();
     const CAR_REGEXP = /^[a-zA-Z0-9]{2,20}$/;
@@ -134,12 +134,12 @@ const Car = () => {
                 </div>
             )}
             {errMsg && <p className="errmsg">{errMsg}</p>}
-            <div className="car-list">
+            <div className="grid-content-4">
                 {cars.length === 0 ? (
                     <p>0</p>
                 ) : (
                     cars.map((car) =>
-                        <div key={car.id}>
+                        <div key={car.id} className="car-list-item grid-item" onClick={() => navigate(`/car/${car.id}`)}>
                             <h2>{car["brand"]} {car["model"]}</h2>
                             <p>Year: {car["year"]}</p>
                             <p>License Plate: {car["license_plate"]}</p>
@@ -148,9 +148,12 @@ const Car = () => {
                         </div>
                     )
                 )}
+                <div className="car-list-item grid-item">
+                    Add Car
+                </div>
             </div>
         </section>
     );
 };
 
-export default Car
+export default Cars

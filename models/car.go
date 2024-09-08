@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"seplu.pl/personal-space/db"
+	"time"
 )
 
 type Car struct {
@@ -14,6 +15,18 @@ type Car struct {
 	LicensePlate string `json:"license_plate"`
 	Mileage      int    `json:"mileage"`
 	Owner        int64  `json:"owner"`
+}
+
+type CarDetails struct {
+	ID          int64     `json:"id"`
+	DateTime    time.Time `json:"datetime"`
+	Mileage     int       `json:"mileage"`
+	TypeOfFuel  int       `json:"type_of_fuel"`
+	UnitPrice   int       `json:"unit_price"`
+	TotalPrice  int       `json:"total_price"`
+	LitersKwh   int       `json:"litersKwh"`
+	Description string    `json:"description"`
+	Owner       int64     `json:"owner"`
 }
 
 type CarService struct{}
@@ -87,5 +100,55 @@ func (cs CarService) CreateCar(c *Car, userId int64) error {
 	id, err := result.LastInsertId()
 	c.ID = id
 	c.Owner = userId
+	return nil
+}
+
+func (cs CarService) GetCarDetails(carId int, userId int64) ([]CarDetails, error) {
+	query := `SELECT ID, DateTime, Mileage, TypeOfFuel, UnitPrice, TotalPrice, LitersKwh, Description FROM car_fuel_charge WHERE Car = ? AND Owner = ?`
+	rows, err := db.DB.Query(query, carId, userId)
+	if err != nil {
+		return nil, err
+	}
+	defer func(rows *sql.Rows) {
+		err := rows.Close()
+		if err != nil {
+			return
+		}
+	}(rows)
+
+	var carFuelChargeDetails []CarDetails
+	for rows.Next() {
+		var carDetails CarDetails
+		err := rows.Scan(&carDetails.ID, &carDetails.DateTime, &carDetails.Mileage, &carDetails.TypeOfFuel, &carDetails.UnitPrice, &carDetails.TotalPrice, &carDetails.LitersKwh, &carDetails.Description)
+		if err != nil {
+			return nil, err
+		}
+		carFuelChargeDetails = append(carFuelChargeDetails, carDetails)
+	}
+	return carFuelChargeDetails, nil
+}
+
+func (cs CarService) CreateCarDetails(cd *CarDetails, userId int64) error {
+	query := `INSERT INTO car_fuel_charge (DateTime, Mileage, TypeOfFuel, UnitPrice, TotalPrice, LitersKwh, Description, Owner) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer func(stmt *sql.Stmt) {
+		err := stmt.Close()
+		if err != nil {
+			return
+		}
+	}(stmt)
+	result, err := stmt.Exec(cd.DateTime, cd.Mileage, cd.TypeOfFuel, cd.UnitPrice, cd.TotalPrice, cd.LitersKwh, cd.Description, userId)
+	if err != nil {
+		return err
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return err
+	}
+	cd.ID = id
+	cd.Owner = userId
 	return nil
 }

@@ -77,9 +77,9 @@ func createTables() {
     	DateTime DATETIME NOT NULL,
     	Mileage INTEGER NOT NULL,
     	TypeOfFuel INTEGER REFERENCES car_fuel_type(id),
-    	UnitPrice INTEGER NOT NULL,
-    	TotalPrice INTEGER NOT NULL,
-    	Liters_kwh INTEGER NOT NULL,
+    	UnitPrice DECIMAL(10,2) NOT NULL,
+    	TotalPrice DECIMAL(5,2) NOT NULL,
+    	LitersKwh DECIMAL(5,2) NOT NULL,
     	Description TEXT NOT NULL,
     	Owner INTEGER REFERENCES users(id),
     	Car INTEGER REFERENCES cars(id)
