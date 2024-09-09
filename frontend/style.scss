@@ -12,6 +12,9 @@ $header-footer-link-color: #80858c;
 
 $navbar-underline: #4a8361;
 
+$car-list-item-background-color: #4d4e51;
+$car-form-background-color: #1e1f22;
+
 $base-font-weight: 300;
 $base-font-size: 1rem;
 $base-line-height: 1.5;
@@ -340,7 +343,7 @@ form p.message a:hover {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: $navbar-underline;
+  background-color: $login-register-color;
 }
 
 @media screen and (max-width: 960px) {
@@ -353,6 +356,10 @@ form p.message a:hover {
 .content {
   min-height: calc(100vh - 200px);
 }
+.content-blur {
+  filter: blur(5px);
+  transition: filter 0.3s ease-in-out;
+}
 
 // Footer
 .footer {
@@ -362,17 +369,94 @@ form p.message a:hover {
 
 // Cars
 .car-form {
-  margin-top: 20px;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 400px;
+  margin-top: 100px;
+  bottom: 100px;
+  background: $car-form-background-color;
+  transition: right 0.3s ease-in-out;
   padding: 20px;
-  background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  color: $header-footer-link-color;
+  text-align: left;
 }
-
+.car-form.show {
+  right: 0;
+}
 .car-list-item {
-  background: #333333;
+  background: $car-list-item-background-color;
   border-radius: 15px;
 }
-
+.input-div {
+  height: 50px;
+  position: relative;
+  width: 100%;
+}
+.first {
+    margin-top: 40px;
+}
+.other {
+    margin-top: 30px;
+}
+.input {
+  background-color: $car-list-item-background-color;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #000000;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+.space {
+  background-color: $header-footer-background-color;
+  border-radius: 10px;
+  height: 20px;
+  left: 20px;
+  position: absolute;
+  top: -20px;
+  transform: translateY(0);
+  transition: transform 200ms;
+  width: 150px;
+}
+.input:focus ~ .space,
+.input:not(:placeholder-shown) ~ .space {
+  transform: translateY(8px);
+}
+.placeholder {
+  font-family: sans-serif;
+  left: 20px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: transform 200ms, color 200ms;
+  top: 20px;
+}
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+.input:focus ~ .placeholder {
+  color: $header-footer-link-color;
+}
+.car-form-submit-button {
+  background: $login-register-color;
+  color: $login-register-font-color;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 38px;
+  text-align: center;
+  width: 100%;
+}
 button {
-  margin: 10px 0;
+  margin: 30px 0;
 }

@@ -83,7 +83,7 @@ const Cars = () => {
                 setLicensePlate("");
                 setEngine("");
                 setMileage("");
-                navigate("/car");
+                navigate(0);
             } catch (err) {
                 if (!err?.response) {
                     setErrMsg('No Server Response');
@@ -102,44 +102,55 @@ const Cars = () => {
         <section>
             <h1>Car</h1>
             <button onClick={toggleForm}>Create Car</button>
-            {showForm && (
-                <div className="car-form">
-                    <form onSubmit={handleSubmit}>
-                        <label>
-                            Brand:
-                            <input type="text" name="Brand" value={Brand} onChange={(e) => setBrand(e.target.value)}/>
-                        </label>
-                        <label>
-                            Model:
-                            <input type="text" name="Model" value={Model} onChange={(e) => setModel(e.target.value)}/>
-                        </label>
-                        <label>
-                            Engine:
-                            <input type="text" name="Model" value={Engine} onChange={(e) => setEngine(e.target.value)}/>
-                        </label>
-                        <label>
-                            Year:
-                            <input type="text" name="Year" value={Year} onChange={(e) => setYear(e.target.value)}/>
-                        </label>
-                        <label>
-                            License Plate:
-                            <input type="text" name="LicensePlate" value={LicensePlate} onChange={(e) => setLicensePlate(e.target.value)}/>
-                        </label>
-                        <label>
-                            Mileage:
-                            <input type="text" name="Model" value={Mileage} onChange={(e) => setMileage(e.target.value)}/>
-                        </label>
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
-            )}
+            <div className={`car-form ${showForm ? 'show' : ''}`}>
+                <form onSubmit={handleSubmit}>
+                    <div className="input-div first">
+                        <input id="brand" className="input" type="text" placeholder=" " name="Brand" value={Brand}
+                               onChange={(e) => setBrand(e.target.value)}/>
+                        <div className="space"></div>
+                        <label htmlFor="brand" className="placeholder">Brand</label>
+                    </div>
+                    <div className="input-div other">
+                        <input id="model" className="input" type="text" placeholder=" " name="Model" value={Model}
+                               onChange={(e) => setModel(e.target.value)}/>
+                        <div className="space"></div>
+                        <label htmlFor="model" className="placeholder">Model</label>
+                    </div>
+                    <div className="input-div other">
+                        <input id="engine" className="input" type="text" placeholder=" " name="Engine" value={Engine}
+                               onChange={(e) => setEngine(e.target.value)}/>
+                        <div className="space"></div>
+                        <label htmlFor="engine" className="placeholder">Engine</label>
+                    </div>
+                    <div className="input-div other">
+                        <input id="year" className="input" type="text" placeholder=" " name="Year" value={Year}
+                               onChange={(e) => setYear(e.target.value)}/>
+                        <div className="space"></div>
+                        <label htmlFor="year" className="placeholder">Year</label>
+                    </div>
+                    <div className="input-div other">
+                        <input id="licensePlate" className="input" type="text" placeholder=" " name="LicensePlate"
+                               value={LicensePlate} onChange={(e) => setLicensePlate(e.target.value)}/>
+                        <div className="space"></div>
+                        <label htmlFor="licensePlate" className="placeholder">License Plate</label>
+                    </div>
+                    <div className="input-div other">
+                        <input id="mileage" className="input" type="text" placeholder=" " name="Milage"
+                               value={Mileage} onChange={(e) => setMileage(e.target.value)}/>
+                        <div className="space"></div>
+                        <label htmlFor="mileage" className="placeholder">Mileage</label>
+                    </div>
+                    <button type="submit" className="car-form-submit-button">Submit</button>
+                </form>
+            </div>
             {errMsg && <p className="errmsg">{errMsg}</p>}
-            <div className="grid-content-4">
+            <div className={`grid-content-4 ${showForm ? 'content-blur' : ''}`}>
                 {cars.length === 0 ? (
                     <p>0</p>
                 ) : (
                     cars.map((car) =>
-                        <div key={car.id} className="car-list-item grid-item" onClick={() => navigate(`/car/${car.id}`)}>
+                        <div key={car.id} className="car-list-item grid-item"
+                             onClick={() => navigate(`/car/${car.id}`)}>
                             <h2>{car["brand"]} {car["model"]}</h2>
                             <p>Year: {car["year"]}</p>
                             <p>License Plate: {car["license_plate"]}</p>

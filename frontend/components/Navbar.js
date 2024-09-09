@@ -22,31 +22,31 @@ function Navbar() {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/car" className={location.pathname === "/car" ? "active" : ""}>
+                    <Link to="/car" className={location.pathname.includes("car") ? "active" : ""}>
                         <IoCarSportOutline className="navigation-icon"/>
                         <span className="invisible">Car</span>
                     </Link>
                 </li>
                 <li>
-                    <Link to="/finance" className={location.pathname === "/finance" ? "active" : ""}>
+                    <Link to="/finance" className={location.pathname.includes("/finance") ? "active" : ""}>
                         <IoCashOutline className="navigation-icon"/>
                         <span className="invisible">Finance</span>
                     </Link>
                 </li>
                 <li>
-                    <Link to="/health" className={location.pathname === "/health" ? "active" : ""}>
+                    <Link to="/health" className={location.pathname.includes("/health") ? "active" : ""}>
                         <IoPulseOutline className="navigation-icon"/>
                         <span className="invisible">Health</span>
                     </Link>
                 </li>
                 <li>
-                    <Link to="/habits" className={location.pathname === "/habits" ? "active" : ""}>
+                    <Link to="/habits" className={location.pathname.includes("/habits") ? "active" : ""}>
                         <IoRibbonOutline className="navigation-icon"/>
                         <span className="invisible">Habits tracker</span>
                     </Link>
                 </li>
                 <li>
-                    <Link to="/collection" className={location.pathname === "/collection" ? "active" : ""}>
+                    <Link to="/collection" className={location.pathname.includes("/collection") ? "active" : ""}>
                         <IoLibraryOutline className="navigation-icon"/>
                         <span className="invisible">Collection</span>
                     </Link>
