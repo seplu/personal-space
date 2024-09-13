@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "../api/Axios";
+import {IoAddCircleOutline, IoClose} from "react-icons/io5";
 
 const Cars = () => {
     const [showForm, setShowForm] = useState(false);
+    const formRef = useRef(null);
     const navigate = useNavigate();
     const CAR_REGEXP = /^[a-zA-Z0-9]{2,20}$/;
     const CAR_YEAR_REGEXP = /^[0-9]{4}$/;
@@ -23,6 +25,23 @@ const Cars = () => {
     const toggleForm = () => {
         setShowForm(!showForm);
     };
+
+    const handleClickOutside = (event) => {
+        if (formRef.current && !formRef.current.contains(event.target)) {
+            setShowForm(false);
+        }
+    };
+
+    useEffect(() => {
+        if (showForm) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showForm]);
 
     useEffect(() => {
         (async () => {
@@ -101,9 +120,9 @@ const Cars = () => {
     return (
         <section>
             <h1>Car</h1>
-            <button onClick={toggleForm}>Create Car</button>
-            <div className={`car-form ${showForm ? 'show' : ''}`}>
+            <div ref={formRef} className={`car-form ${showForm ? 'show' : ''}`}>
                 <form onSubmit={handleSubmit}>
+                    <div onClick={toggleForm} className="close-form-icon"><IoClose size={36}/></div>
                     <div className="input-div first">
                         <input id="brand" className="input" type="text" placeholder=" " name="Brand" value={Brand}
                                onChange={(e) => setBrand(e.target.value)}/>
@@ -159,8 +178,12 @@ const Cars = () => {
                         </div>
                     )
                 )}
-                <div className="car-list-item grid-item">
-                    Add Car
+                <div onClick={toggleForm} className="car-list-item grid-item create-car">
+                    <div>
+                        <IoAddCircleOutline size={70}/>
+                        <br/>
+                        Add Car
+                    </div>
                 </div>
             </div>
         </section>

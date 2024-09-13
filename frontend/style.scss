@@ -319,6 +319,11 @@ form p.message a:hover {
   position: relative;
   text-decoration: none;
   color: $header-footer-link-color;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #fff;
+  }
 }
 .navigation--inline ul {
   display: flex;
@@ -366,6 +371,18 @@ form p.message a:hover {
   background: $header-footer-background-color;
   height: 100px;
 }
+.close-form-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #fff;
+  }
+}
 
 // Cars
 .car-form {
@@ -388,6 +405,18 @@ form p.message a:hover {
 .car-list-item {
   background: $car-list-item-background-color;
   border-radius: 15px;
+  transition: background 0.3s ease;
+  height: 200px;
+
+  &:hover {
+    background: $header-footer-link-color;
+    cursor: pointer;
+  }
+}
+.create-car {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .input-div {
   height: 50px;
