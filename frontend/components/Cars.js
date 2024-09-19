@@ -171,10 +171,13 @@ const Cars = () => {
                         <div key={car.id} className="car-list-item grid-item"
                              onClick={() => navigate(`/car/${car.id}`)}>
                             <h2>{car["brand"]} {car["model"]}</h2>
-                            <p>Year: {car["year"]}</p>
-                            <p>License Plate: {car["license_plate"]}</p>
-                            <p>Engine: {car["engine"]}</p>
-                            <p>Mileage: {car["mileage"]}</p>
+                            <p className="small">Engine: {car["engine"]}</p>
+                            <br/>
+                            <div className="car-list-item-bottom">
+                                <div className="car-list-item-bottom-left"><p className="small">{car["year"]}</p></div>
+                                <div className="car-list-item-bottom-center"><p>{car["license_plate"]}</p></div>
+                                <div className="car-list-item-bottom-right"><p className="small">{car["mileage"]} km</p></div>
+                            </div>
                         </div>
                     )
                 )}

@@ -1,25 +1,24 @@
 $base-color: #1e1f22;
 $base-background-color: #2b2d30;
+$base-background-color-2: #4d4e51;
 $error-background-color: lightpink;
 $error-font-color: firebrick;
 $instructions-background-color: #fdca40;
 $instruction-font-color: #000;
 $login-register-color: #2E8B57;
 $login-register-font-color: #fff;
-
 $header-footer-background-color: #1e1f22;
 $header-footer-link-color: #80858c;
-
 $navbar-underline: #4a8361;
-
-$car-list-item-background-color: #4d4e51;
+$car-list-item-background-color: #80858c;
 $car-form-background-color: #1e1f22;
-
 $base-font-weight: 300;
 $base-font-size: 1rem;
 $base-line-height: 1.5;
 $base-font-family: Helvetica;
 $base-font-family-fallback: sans-serif;
+
+// Base styles
 
 * {
   margin: 0;
@@ -27,7 +26,7 @@ $base-font-family-fallback: sans-serif;
   box-sizing: border-box;
 }
 body {
-  background-color: $base-background-color;
+  background-color: $base-background-color-2;
   color: $base-color;
   font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family, $base-font-family-fallback;
   min-height: 100vh;
@@ -156,6 +155,17 @@ form p.message a {
 }
 form p.message a:hover {
   text-decoration: underline;
+}
+.login-first {
+  margin-top: 30px;
+}
+.login-other {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.register-form .login-other {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .register p a {
   color: $login-register-font-color;
@@ -396,7 +406,6 @@ form p.message a:hover {
   transition: right 0.3s ease-in-out;
   padding: 20px;
   z-index: 1000;
-  color: $header-footer-link-color;
   text-align: left;
 }
 .car-form.show {
@@ -406,12 +415,33 @@ form p.message a:hover {
   background: $car-list-item-background-color;
   border-radius: 15px;
   transition: background 0.3s ease;
-  height: 200px;
+  height: 150px;
 
   &:hover {
-    background: $header-footer-link-color;
+    background: #ffffff;
     cursor: pointer;
   }
+}
+.car-list-item-bottom {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.car-list-item-bottom-left {
+  width: 25%;
+  display: inline-block;
+  border-right: 2px solid $base-background-color-2;
+}
+.car-list-item-bottom-right {
+  width: 25%;
+  display: inline-block;
+  border-left: 2px solid $base-background-color-2;
+}
+.car-list-item-bottom-center {
+  width: 50%;
+  display: inline-block;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 .create-car {
   display: flex;
@@ -422,6 +452,9 @@ form p.message a:hover {
   height: 50px;
   position: relative;
   width: 100%;
+}
+.small {
+    font-size: 1.0rem;
 }
 .first {
     margin-top: 40px;
@@ -440,6 +473,30 @@ form p.message a:hover {
   outline: 0;
   padding: 4px 20px 0;
   width: 100%;
+}
+.login-first input,
+.login-other input {
+  background-color: $login-register-color;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, .1);
+  box-sizing: border-box;
+  color: #ffffff;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+.login-other div.space {
+  background-color: $login-register-color;
+  border-radius: 10px;
+  height: 20px;
+  left: 20px;
+  position: absolute;
+  top: -20px;
+  transform: translateY(0);
+  transition: transform 200ms;
+  width: 75px;
 }
 .space {
   background-color: $header-footer-background-color;
@@ -473,6 +530,12 @@ form p.message a:hover {
 .input:focus ~ .placeholder {
   color: $header-footer-link-color;
 }
+.login-first input:focus ~ .placeholder {
+  color: $login-register-font-color;
+}
+.login-other input:focus ~ .placeholder {
+  color: $login-register-font-color;
+}
 .car-form-submit-button {
   background: $login-register-color;
   color: $login-register-font-color;
@@ -487,5 +550,5 @@ form p.message a:hover {
   width: 100%;
 }
 button {
-  margin: 30px 0;
+  margin: 15px 0;
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate} from "react-router-dom";
 import RegisterCheck from "../hooks/RegisterCheck";
 import axios from "../api/Axios";
-import {FaEnvelope, FaLock, FaUser} from "react-icons/fa";
 
 const Login = () => {
     const USER_REGEXP = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -172,32 +171,34 @@ const Login = () => {
                         <p className={notifyMsg ? "notify" : "offscreen"} aria-live="assertive">{notifyMsg}</p>
                         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         <h1>Login</h1>
-                        <div className="input-box">
+                        <div className="input-div login-other">
                             <input
                                 type="text"
                                 id="username"
                                 ref={userRef}
                                 autoComplete="off"
                                 required={true}
-                                className="text-input"
-                                placeholder="Username"
+                                className="input"
+                                placeholder=""
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
-                            <FaUser className="icon"/>
+                            <div className="space"></div>
+                            <label htmlFor="username" className="placeholder">Username</label>
                         </div>
-                        <div className="input-box">
+                        <div className="input-div login-other">
                             <input
                                 type="password"
                                 id="password"
                                 autoComplete="off"
                                 required={true}
-                                className="text-input"
-                                placeholder="Password"
+                                className="input"
+                                placeholder=""
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <FaLock className="icon"/>
+                            <div className="space"></div>
+                            <label htmlFor="password" className="placeholder">Password</label>
                         </div>
                         <div className="form-options">
                             <label><input type="checkbox"/>Remember me</label>
@@ -217,22 +218,23 @@ const Login = () => {
                         <p className={notifyMsg ? "notify" : "offscreen"} aria-live="assertive">{notifyMsg}</p>
                         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         <h1>Registration</h1>
-                        <div className="input-box">
+                        <div className="input-div login-other">
                             <input
                                 type="text"
                                 id="usernameregister"
                                 ref={registerUserRef}
                                 autoComplete="off"
                                 required={true}
-                                className="text-input"
-                                placeholder="Username"
+                                className="input"
+                                placeholder=""
                                 aria-invalid={validName ? "false" : "true"}
                                 aria-describedby="uidnote"
                                 onChange={(e) => setUsernameReg(e.target.value)}
                                 onFocus={() => setUserFocus(true)}
                                 onBlur={() => setUserFocus(false)}
                             />
-                            <FaUser className="icon"/>
+                            <div className="space"></div>
+                            <label htmlFor="username" className="placeholder">Username</label>
                         </div>
                         <p id="uidnote"
                            className={userFocus && usernameregister && !validName ? "instructions" : "offscreen"}>
@@ -240,40 +242,42 @@ const Login = () => {
                             Must begin with a letter.<br/>
                             Letters, numbers, underscores, hyphens allowed.
                         </p>
-                        <div className="input-box">
-                            <input
-                                type="email"
-                                id="email"
-                                autoComplete="off"
-                                required={true}
-                                className="text-input"
-                                placeholder="Email"
-                                aria-invalid={validEmail ? "false" : "true"}
-                                aria-describedby="emailnote"
-                                onChange={(e) => setEmail(e.target.value)}
-                                onFocus={() => setEmailFocus(true)}
-                                onBlur={() => setEmailFocus(false)}
-                            />
-                            <FaEnvelope className="icon"/>
-                        </div>
-                        <p id="emailnote" className={emailFocus && !validEmail ? "instructions" : "offscreen"}>
-                            Must be a valid email address with @ and domain.
+                    <div className="input-div login-other">
+                        <input
+                            type="email"
+                            id="email"
+                            autoComplete="off"
+                            required={true}
+                            className="input"
+                            placeholder=""
+                            aria-invalid={validEmail ? "false" : "true"}
+                            aria-describedby="emailnote"
+                            onChange={(e) => setEmail(e.target.value)}
+                            onFocus={() => setEmailFocus(true)}
+                            onBlur={() => setEmailFocus(false)}
+                        />
+                        <div className="space"></div>
+                        <label htmlFor="email" className="placeholder">Email</label>
+                    </div>
+                    <p id="emailnote" className={emailFocus && !validEmail ? "instructions" : "offscreen"}>
+                    Must be a valid email address with @ and domain.
                         </p>
-                        <div className="input-box">
+                        <div className="input-div login-other">
                             <input
                                 type="password"
                                 id="passwordregister"
                                 autoComplete="off"
                                 required={true}
-                                className="text-input"
-                                placeholder="Password"
+                                className="input"
+                                placeholder=""
                                 aria-invalid={validPwd ? "false" : "true"}
                                 aria-describedby="pwdnote"
                                 onChange={(e) => setPasswordReg(e.target.value)}
                                 onFocus={() => setPwdFocus(true)}
                                 onBlur={() => setPwdFocus(false)}
                             />
-                            <FaLock className="icon"/>
+                            <div className="space"></div>
+                            <label htmlFor="password" className="placeholder">Password</label>
                         </div>
                         <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
                             8 to 24 characters.<br/>
