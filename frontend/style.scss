@@ -387,6 +387,7 @@ form p.message a:hover {
   right: 15px;
   font-size: 1.5rem;
   cursor: pointer;
+  color: $car-list-item-background-color;
   transition: color 0.3s ease;
 
   &:hover {
