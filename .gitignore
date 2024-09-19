@@ -33,3 +33,6 @@ package-lock.json
 # DEV
 public/assets/*.js
 public/assets/*.css
+
+# TODO items
+*.todo
