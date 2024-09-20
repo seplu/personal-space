@@ -22,6 +22,7 @@ func RegisterRoutes(app *fiber.App) {
 		"/car",
 		"/car/:id",
 		"/login",
+		"*",
 	}
 	for _, route := range frontendRoutes {
 		app.Get(route, home)
