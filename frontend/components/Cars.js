@@ -67,6 +67,15 @@ const Cars = () => {
         }
     }, [errMsg]);
 
+    const clearForm = () => {
+        setBrand("");
+        setModel("");
+        setYear("");
+        setLicensePlate("");
+        setEngine("");
+        setMileage("");
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const field1 = CAR_REGEXP.test(Brand);
@@ -110,6 +119,7 @@ const Cars = () => {
                     setErrMsg('Missing data');
                 } else if (err.response?.status === 401) {
                     setErrMsg('Unauthorized');
+                    navigate('/login');
                 } else {
                     setErrMsg('Login failed');
                 }
@@ -161,6 +171,7 @@ const Cars = () => {
                     </div>
                     <button type="submit" className="car-form-submit-button">Submit</button>
                 </form>
+                <button onClick={clearForm} className="car-form-clear-button">Clear values</button>
             </div>
             {errMsg && <p className="errmsg">{errMsg}</p>}
             <div className={`grid-content-4 ${showForm ? 'content-blur' : ''}`}>

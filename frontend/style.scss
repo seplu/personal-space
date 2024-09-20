@@ -527,6 +527,7 @@ form p.message a:hover {
 .input:focus ~ .placeholder,
 .input:not(:placeholder-shown) ~ .placeholder {
   transform: translateY(-30px) translateX(10px) scale(0.75);
+  color: $header-footer-link-color;
 }
 .input:focus ~ .placeholder {
   color: $header-footer-link-color;
@@ -547,6 +548,18 @@ form p.message a:hover {
   font-size: 18px;
   height: 50px;
   margin-top: 38px;
+  text-align: center;
+  width: 100%;
+}
+.car-form-clear-button {
+  background: $instructions-background-color;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 10px;
   text-align: center;
   width: 100%;
 }
