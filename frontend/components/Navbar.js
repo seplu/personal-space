@@ -2,9 +2,11 @@ import React from 'react';
 import {
     IoCarSportOutline,
     IoCashOutline,
+    IoCheckmarkDoneOutline,
     IoHomeOutline,
     IoLibraryOutline,
     IoPulseOutline,
+    IoReaderOutline,
     IoRibbonOutline
 } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
@@ -49,6 +51,18 @@ function Navbar() {
                     <Link to="/collection" className={location.pathname.includes("/collection") ? "active" : ""}>
                         <IoLibraryOutline className="navigation-icon"/>
                         <span className="invisible">Collection</span>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/todos" className={location.pathname.includes("/todos") ? "active" : ""}>
+                        <IoCheckmarkDoneOutline className="navigation-icon"/>
+                        <span className="invisible">To-Do</span>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/notes" className={location.pathname.includes("/notes") ? "active" : ""}>
+                        <IoReaderOutline className="navigation-icon"/>
+                        <span className="invisible">Notes</span>
                     </Link>
                 </li>
             </ul>
