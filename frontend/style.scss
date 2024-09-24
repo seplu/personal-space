@@ -529,6 +529,10 @@ form p.message a:hover {
   transform: translateY(-30px) translateX(10px) scale(0.75);
   color: $header-footer-link-color;
 }
+.login-other input:not(:placeholder-shown) ~ .placeholder {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+  color: $login-register-font-color;
+}
 .input:focus ~ .placeholder {
   color: $header-footer-link-color;
 }
