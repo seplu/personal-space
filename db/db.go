@@ -19,85 +19,73 @@ func InitDB() {
 	createTables()
 }
 
-func createTables() {
-	createUsersTable := `CREATE TABLE IF NOT EXISTS users (
+const (
+	createUsersTable = `CREATE TABLE IF NOT EXISTS users (
 		ID INTEGER PRIMARY KEY AUTOINCREMENT,
 		Username TEXT NOT NULL UNIQUE,
 		Password TEXT NOT NULL,
-		Email TEXT NOT NULL UNIQUE	
-	)`
-	_, err := DB.Exec(createUsersTable)
-	if err != nil {
-		panic("Could not create users table.")
-	}
-
-	createCarsTable := `CREATE TABLE IF NOT EXISTS cars (
-    	ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    	Brand TEXT NOT NULL,
-    	Model TEXT NOT NULL,
-    	Engine TEXT,
-    	LicensePlate TEXT,
-    	Mileage INTEGER,
-    	Year INTEGER NOT NULL,
-    	Owner INTEGER REFERENCES users(id)
-    )`
-
-	_, err = DB.Exec(createCarsTable)
-	if err != nil {
-		panic("Could not create cars table.")
-	}
-
-	createCarCostsTable := `CREATE TABLE IF NOT EXISTS car_costs (
-    	ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    	DateTime DATETIME NOT NULL,
-    	Title TEXT NOT NULL,
-    	Cost INTEGER NOT NULL,
-    	Description TEXT NOT NULL,
-    	Owner INTEGER REFERENCES users(id),
-    	Car INTEGER REFERENCES cars(id)
-    )`
-
-	_, err = DB.Exec(createCarCostsTable)
-	if err != nil {
-		panic("Could not create car_costs table.")
-	}
-
-	createCarFuelTypeTable := `CREATE TABLE IF NOT EXISTS car_fuel_type (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Type TEXT NOT NULL
+		Email TEXT NOT NULL UNIQUE
 	)`
 
-	_, err = DB.Exec(createCarFuelTypeTable)
-	if err != nil {
-		panic("Could not create car_fuel_type table.")
-	}
-
-	createCarFuelChargeTable := `CREATE TABLE IF NOT EXISTS car_fuel_charge (
-    	ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    	DateTime DATETIME NOT NULL,
-    	Mileage INTEGER NOT NULL,
-    	TypeOfFuel INTEGER REFERENCES car_fuel_type(id),
-    	UnitPrice DECIMAL(10,2) NOT NULL,
-    	TotalPrice DECIMAL(5,2) NOT NULL,
-    	LitersKwh DECIMAL(5,2) NOT NULL,
-    	Description TEXT NOT NULL,
-    	Owner INTEGER REFERENCES users(id),
-    	Car INTEGER REFERENCES cars(id)
-    )`
-
-	_, err = DB.Exec(createCarFuelChargeTable)
-	if err != nil {
-		panic("Could not create car_fuel_charge table.")
-	}
-
-	createSettingsTable := `CREATE TABLE IF NOT EXISTS settings (
-    	ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    	SettingName TEXT NOT NULL,
-    	SettingValue TEXT NOT NULL
+	createCarsTable = `CREATE TABLE IF NOT EXISTS cars (
+		ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		Brand TEXT NOT NULL,
+		Model TEXT NOT NULL,
+		Engine TEXT,
+		LicensePlate TEXT,
+		Mileage INTEGER,
+		Year INTEGER NOT NULL,
+		Owner INTEGER REFERENCES users(id)
 	)`
 
-	_, err = DB.Exec(createSettingsTable)
-	if err != nil {
-		panic("Could not create settings table.")
+	createCarCostsTable = `CREATE TABLE IF NOT EXISTS car_costs (
+		ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		Date DATE NOT NULL,
+		Title TEXT NOT NULL,
+		Cost DECIMAL(10,2) NOT NULL,
+		Description TEXT NOT NULL,
+		Owner INTEGER REFERENCES users(id),
+		Car INTEGER REFERENCES cars(id)
+	)`
+
+	createCarFuelTypeTable = `CREATE TABLE IF NOT EXISTS car_fuel_type (
+		ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		Type TEXT NOT NULL
+	)`
+
+	createCarFuelChargeTable = `CREATE TABLE IF NOT EXISTS car_fuel_charge (
+		ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		Date DATE NOT NULL,
+		Mileage INTEGER NOT NULL,
+		TypeOfFuel INTEGER REFERENCES car_fuel_type(id),
+		UnitPrice DECIMAL(5,2) NOT NULL,
+		TotalPrice DECIMAL(5,2) NOT NULL,
+		LitersKwh DECIMAL(5,2) NOT NULL,
+		Description TEXT NOT NULL,
+		Owner INTEGER REFERENCES users(id),
+		Car INTEGER REFERENCES cars(id)
+	)`
+
+	createSettingsTable = `CREATE TABLE IF NOT EXISTS settings (
+		ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		SettingName TEXT NOT NULL,
+		SettingValue TEXT NOT NULL
+	)`
+)
+
+func createTables() {
+	tables := []string{
+		createUsersTable,
+		createCarsTable,
+		createCarCostsTable,
+		createCarFuelTypeTable,
+		createCarFuelChargeTable,
+		createSettingsTable,
+	}
+
+	for _, table := range tables {
+		if _, err := DB.Exec(table); err != nil {
+			panic("Could not create table: " + err.Error())
+		}
 	}
 }
