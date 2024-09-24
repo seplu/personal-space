@@ -7,7 +7,7 @@ const Cars = () => {
     const [showForm, setShowForm] = useState(false);
     const formRef = useRef(null);
     const navigate = useNavigate();
-    const CAR_REGEXP = /^[a-zA-Z0-9]{2,20}$/;
+    const CAR_REGEXP = /^[a-zA-Z0-9 ]{2,20}$/;
     const CAR_YEAR_REGEXP = /^[0-9]{4}$/;
     const CARS_URL = "/cars";
 
