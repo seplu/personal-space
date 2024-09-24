@@ -175,9 +175,7 @@ const Cars = () => {
             </div>
             {errMsg && <p className="errmsg">{errMsg}</p>}
             <div className={`grid-content-4 ${showForm ? 'content-blur' : ''}`}>
-                {cars.length === 0 ? (
-                    <p>0</p>
-                ) : (
+                {cars === null || cars.length === 0 ? ("") : (
                     cars.map((car) =>
                         <div key={car.id} className="car-list-item grid-item"
                              onClick={() => navigate(`/car/${car.id}`)}>
